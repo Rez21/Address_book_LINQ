@@ -14,7 +14,6 @@ namespace AddressBookLinq
 
 
         // UC 2 Initializes a new instance of the class.
-
         public AddressBookTable()
         {
             table.Columns.Add("FirstName", typeof(string));
@@ -34,6 +33,32 @@ namespace AddressBookLinq
             table.Rows.Add("Praveen", "Kumar", "rohini", "Delhi", "Delhi", "435121", "7897897898", "praveen.kumar@gmail.com");
             table.Rows.Add("Apoorva", "Singh", "Andheri", "Mumbai", "Maharashtra", "125445", "8598598599", "apporva.singh@gmail.com");
         }
+
+        public void GetAllContacts()
+        {
+            Console.WriteLine("\n\n");
+            foreach (DataRow dr in table.AsEnumerable())
+            {
+                Console.WriteLine("\n\n");
+                Console.WriteLine("FirstName:- " + dr.Field<string>("firstName"));
+                Console.WriteLine("lastName:- " + dr.Field<string>("lastName"));
+                Console.WriteLine("Address:- " + dr.Field<string>("address"));
+                Console.WriteLine("City:- " + dr.Field<string>("city"));
+                Console.WriteLine("State:- " + dr.Field<string>("state"));
+                Console.WriteLine("zip:- " + dr.Field<string>("zip"));
+                Console.WriteLine("phoneNumber:- " + dr.Field<string>("phoneNumber"));
+                Console.WriteLine("eMail:- " + dr.Field<string>("eMail"));
+            }
+        }
+            //UC 4 Edits the existing contact.
+         
+            public void EditExistingContact(string firstName, string lastName, string column, string newValue)
+            {
+                DataRow contact = table.Select("FirstName = '" + firstName + "' and LastName = '" + lastName + "'").FirstOrDefault();
+                contact[column] = newValue;
+            }
+        }
+
     }
-    }
-}
+
+
